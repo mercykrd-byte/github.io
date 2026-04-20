@@ -1,0 +1,723 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abosede Mercy Eleja | Cybersecurity Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060b10;
+      --surface: #0d1520;
+      --card: #111d2b;
+      --accent: #00e5ff;
+      --accent2: #39ff14;
+      --text: #c8d8e8;
+      --muted: #5a7a96;
+      --border: #1a3044;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* GRID BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(6,11,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      z-index: 1;
+    }
+
+    .hero-content { max-width: 700px; }
+
+    .hero-tag {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: 2px solid var(--accent);
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-scan {
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      letter-spacing: 4px;
+      opacity: 0.4;
+    }
+
+    /* SECTIONS */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text { font-size: 1rem; line-height: 1.8; color: var(--text); }
+    .about-text p + p { margin-top: 1rem; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.2rem;
+      border-radius: 4px;
+    }
+
+    .stat-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.8rem;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .skill-card h3 {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tag {
+      background: rgba(0,229,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(0,229,255,0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* CERTS */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .cert-card:hover { border-color: var(--accent2); }
+
+    .cert-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .cert-info h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .cert-info p {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .cert-badge {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .project-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .tool-tag {
+      background: rgba(57,255,20,0.08);
+      color: var(--accent2);
+      border: 1px solid rgba(57,255,20,0.2);
+      padding: 0.25rem 0.7rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      padding: 0.7rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 3rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .hero-scan { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 2rem 1.5rem; }
+      .divider { margin: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AME_SEC://</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">// SOC Analyst | Cybersecurity Professional</p>
+      <h1>Abosede<br/><span>Mercy Eleja</span></h1>
+      <p class="hero-desc">
+        Entry-level cybersecurity professional specialising in threat detection, 
+        SIEM analysis, and incident response. Microsoft certified. Lagos, Nigeria.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-scan">INITIALISING_PORTFOLIO · 2025</div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">// 01</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a cybersecurity professional based in Lagos, Nigeria, actively transitioning 
+          into a SOC Analyst role. I hold a B.Tech in Physics from Ondo State University 
+          of Science and Technology and three Microsoft certifications covering security 
+          operations, cloud fundamentals, and security compliance.
+        </p>
+        <p>
+          I'm currently building hands-on skills through the TCM Security SOC Analyst 
+          course, working in a Ubuntu-based lab environment. My focus areas include 
+          phishing investigation, email header analysis, SIEM/KQL, and threat 
+          intelligence tools like VirusTotal and AbuseIPDB.
+        </p>
+        <p>
+          I'm passionate about defending systems, detecting threats early, and 
+          continuously growing my practical knowledge in the security operations space.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Microsoft Certifications</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">SC-200</div>
+          <div class="stat-label">Security Operations</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">KQL</div>
+          <div class="stat-label">Query Language</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">SOC</div>
+          <div class="stat-label">Analyst in Training</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">// 02</p>
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>SIEM & Detection</h3>
+        <div class="skill-tags">
+          <span class="tag">Microsoft Sentinel</span>
+          <span class="tag">KQL</span>
+          <span class="tag">Log Analysis</span>
+          <span class="tag">Alert Triage</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Threat Intelligence</h3>
+        <div class="skill-tags">
+          <span class="tag">VirusTotal</span>
+          <span class="tag">AbuseIPDB</span>
+          <span class="tag">MXToolbox</span>
+          <span class="tag">MITRE ATT&CK</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Email & Phishing</h3>
+        <div class="skill-tags">
+          <span class="tag">Header Analysis</span>
+          <span class="tag">SPF/DKIM/DMARC</span>
+          <span class="tag">Phishing Investigation</span>
+          <span class="tag">Sublime Text</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Cloud & OS</h3>
+        <div class="skill-tags">
+          <span class="tag">Microsoft Azure</span>
+          <span class="tag">Ubuntu Linux</span>
+          <span class="tag">VirtualBox</span>
+          <span class="tag">Windows</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools & Platforms</h3>
+        <div class="skill-tags">
+          <span class="tag">TryHackMe</span>
+          <span class="tag">nslookup / dig</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">TCM Security</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Frameworks</h3>
+        <div class="skill-tags">
+          <span class="tag">MITRE ATT&CK</span>
+          <span class="tag">CIA Triad</span>
+          <span class="tag">Incident Response</span>
+          <span class="tag">Zero Trust</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <p class="section-label">// 03</p>
+    <h2 class="section-title">Certifications</h2>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🛡️</div>
+        <div class="cert-info">
+          <h3>SC-200: Security Operations Analyst</h3>
+          <p>Microsoft Certified — Threat protection, SIEM management, and security operations using Microsoft Sentinel and Defender.</p>
+          <span class="cert-badge">MICROSOFT</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">☁️</div>
+        <div class="cert-info">
+          <h3>AZ-900: Azure Fundamentals</h3>
+          <p>Microsoft Certified — Core Azure cloud concepts, services, pricing, and governance fundamentals.</p>
+          <span class="cert-badge">MICROSOFT</span>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🔐</div>
+        <div class="cert-info">
+          <h3>SC-900: Security, Compliance & Identity</h3>
+          <p>Microsoft Certified — Foundational knowledge of security, compliance, and identity concepts across Microsoft services.</p>
+          <span class="cert-badge">MICROSOFT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">// 04</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">PROJECT_01</div>
+        <h3>Brute-Force Attack Detection with Microsoft Sentinel</h3>
+        <p>
+          Built a detection rule in Microsoft Sentinel using KQL to identify 
+          brute-force login attempts. Configured alert thresholds, tested with 
+          simulated failed login events, and documented the investigation workflow.
+        </p>
+        <div class="project-tools">
+          <span class="tool-tag">Microsoft Sentinel</span>
+          <span class="tool-tag">KQL</span>
+          <span class="tool-tag">Azure</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT_02</div>
+        <h3>Phishing Email Analysis Lab</h3>
+        <p>
+          Investigated suspicious emails by analysing raw email headers, 
+          identifying spoofed sender addresses, checking SPF/DKIM/DMARC records, 
+          and validating URLs and attachments using VirusTotal and AbuseIPDB.
+        </p>
+        <div class="project-tools">
+          <span class="tool-tag">VirusTotal</span>
+          <span class="tool-tag">AbuseIPDB</span>
+          <span class="tool-tag">MXToolbox</span>
+          <span class="tool-tag">Sublime Text</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-num">PROJECT_03</div>
+        <h3>SOC Analyst Home Lab (Ubuntu)</h3>
+        <p>
+          Set up a SOC analyst home lab environment using VirtualBox and Ubuntu. 
+          Practised DNS resolution, nslookup/dig commands, and network 
+          troubleshooting as part of the TCM Security SOC 101 course.
+        </p>
+        <div class="project-tools">
+          <span class="tool-tag">Ubuntu</span>
+          <span class="tool-tag">VirtualBox</span>
+          <span class="tool-tag">Linux CLI</span>
+          <span class="tool-tag">DNS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">// 05</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-box">
+      <p>
+        I'm actively looking for entry-level SOC Analyst and cybersecurity roles in Nigeria. 
+        If you have an opportunity or just want to connect, feel free to reach out.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:mercykrd@gmail.com" class="contact-link">
+          ✉ mercykrd@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/eleja-abosede-546453240" target="_blank" class="contact-link">
+          in LinkedIn
+        </a>
+        <a href="https://github.com/mercykrd-byte" target="_blank" class="contact-link">
+          ⌥ GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Abosede Mercy Eleja · Built with GitHub Pages · Lagos, Nigeria</p>
+  </footer>
+
+</body>
+</html>
